@@ -1,0 +1,62 @@
+<%- include('partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Stock Movements</h3>
+  <a class="btn btn-sm btn-secondary" href="/">Dashboard</a>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card p-3 mb-3">
+      <h5>Stock In (Add Qty)</h5>
+      <form action="/stock/in" method="POST" class="row g-2">
+        <div class="col-12">
+          <select name="item_id" class="form-select" required>
+            <option value="">Select item</option>
+            <% items.forEach(i => { %><option value="<%= i.id %>"><%= i.name %> (stock: <%= i.stock %>)</option><% }) %>
+          </select>
+        </div>
+        <div class="col-6"><input name="qty" class="form-control" type="number" min="1" placeholder="Qty" required></div>
+        <div class="col-6"><input name="note" class="form-control" placeholder="Note (optional)"></div>
+        <div class="col-12"><button class="btn btn-success">Add Stock</button></div>
+      </form>
+    </div>
+
+    <div class="card p-3">
+      <h5>Stock Out (Remove Qty)</h5>
+      <form action="/stock/out" method="POST" class="row g-2">
+        <div class="col-12">
+          <select name="item_id" class="form-select" required>
+            <option value="">Select item</option>
+            <% items.forEach(i => { %><option value="<%= i.id %>"><%= i.name %> (stock: <%= i.stock %>)</option><% }) %>
+          </select>
+        </div>
+        <div class="col-6"><input name="qty" class="form-control" type="number" min="1" placeholder="Qty" required></div>
+        <div class="col-6"><input name="note" class="form-control" placeholder="Note (optional)"></div>
+        <div class="col-12"><button class="btn btn-danger">Remove Stock</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h5>Recent Movements</h5>
+    <div class="table-responsive">
+      <table class="table">
+        <thead><tr><th>Date</th><th>Item</th><th>Type</th><th>Qty</th><th>Note</th></tr></thead>
+        <tbody>
+          <% recent.forEach(r => { %>
+            <tr>
+              <td><%= new Date(r.created_at).toLocaleString() %></td>
+              <td><%= r.item_name %></td>
+              <td><%= r.type %></td>
+              <td><%= r.qty %></td>
+              <td><%= r.note || '-' %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,53 @@
+<%- include('partials/header') %>
+
+<main class="container">
+  <section class="card">
+    <div class="card__header">
+      <h1 class="card__title">Task Manager</h1>
+      <p class="card__subtitle">Add, edit, complete and delete your tasks quickly.</p>
+    </div>
+
+    <!-- Add form -->
+    <form id="addForm" class="form-inline" action="/tasks/add" method="POST">
+      <input id="titleInput" name="title" class="input input--large" placeholder="Enter new task" required />
+      <button type="submit" class="btn btn--primary">Add Task</button>
+    </form>
+
+    <!-- Tasks -->
+    <div class="tasks-section">
+      <ul id="taskList" class="task-list">
+        <% if (!tasks || tasks.length === 0) { %>
+          <li class="empty">No tasks yet — add your first task!</li>
+        <% } %>
+
+        <% tasks.forEach(task => { %>
+          <li class="task-item <%= task.completed ? 'task-item--done' : '' %>" data-id="<%= task.id %>">
+            <div class="task-item__left">
+              <form class="inline-toggle" action="/tasks/update/<%= task.id %>" method="POST">
+                <input type="hidden" name="completed" value="<%= !task.completed %>">
+                <button type="submit" class="btn btn--small btn--outline toggleBtn">
+                  <span class="btn-label"><%= task.completed ? 'Undo' : 'Complete' %></span>
+                </button>
+              </form>
+
+              <div class="task-item__title-wrap">
+                <div class="task-item__title"><%= task.title %></div>
+                <div class="task-item__meta">ID: <%= task.id %></div>
+              </div>
+            </div>
+
+            <div class="task-item__actions">
+              <button type="button" class="btn btn--primary btn--small editBtn">Edit</button>
+
+              <form class="inline-delete" action="/tasks/delete/<%= task.id %>" method="POST" onsubmit="return confirm('Delete this task?');">
+                <button type="submit" class="btn btn--danger btn--small">Delete</button>
+              </form>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

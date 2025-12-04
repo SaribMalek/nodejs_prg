@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Dashboard</title></head>
+<body>
+<h2>Dashboard</h2>
+<pre id="out">loading...</pre>
+<button id="logout">Logout</button>
+
+<script>
+async function load() {
+  const out = (msg)=> document.getElementById('out').innerText = typeof msg === 'string' ? msg : JSON.stringify(msg, null, 2);
+
+  const token = localStorage.getItem('token');
+  console.log('dashboard -> token from localStorage:', token ? token.slice(0,40) + '...' : null);
+  if (!token) {
+    out('No token found in localStorage — redirecting to login');
+    return setTimeout(()=> location.href = '/login.html', 1000);
+  }
+
+  // Build headers explicitly and log them
+  const headers = new Headers();
+  headers.append('Authorization', 'Bearer ' + token);
+  headers.append('Content-Type', 'application/json');
+
+  console.log('dashboard -> request headers:', Array.from(headers.entries()));
+
+  const res = await fetch('/api/dashboard', { method: 'GET', headers, credentials: 'same-origin' });
+  console.log('dashboard -> response HTTP status', res.status);
+
+  const data = await res.json().catch(e => ({ error: 'Invalid JSON', details: String(e) }));
+  console.log('dashboard -> response body', data);
+
+  if (res.status === 401) {
+    out('Unauthorized: ' + (data.error || JSON.stringify(data)));
+    localStorage.removeItem('token');
+    return setTimeout(()=> location.href = '/login.html', 2000);
+  }
+
+  out(data);
+}
+
+document.getElementById('logout').onclick = () => { localStorage.removeItem('token'); location.href = '/login.html'; };
+load();
+</script>
+</body>
+</html>

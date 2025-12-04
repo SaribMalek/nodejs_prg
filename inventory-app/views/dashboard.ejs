@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+
+<div class="row g-3">
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h6>Total Items</h6>
+      <h2 class="mt-2"><%= totalItems %></h2>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h6>Total Suppliers</h6>
+      <h2 class="mt-2"><%= totalSuppliers %></h2>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h6>Total Stock</h6>
+      <h2 class="mt-2"><%= totalStock %></h2>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-4 p-3">
+  <h5>Low stock items</h5>
+  <% if (lowStock.length === 0) { %>
+    <div class="alert alert-success">No low-stock items</div>
+  <% } else { %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead><tr><th>ID</th><th>Name</th><th>Stock</th></tr></thead>
+        <tbody>
+          <% lowStock.forEach(it => { %>
+            <tr><td><%= it.id %></td><td><%= it.name %></td><td><%= it.stock %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

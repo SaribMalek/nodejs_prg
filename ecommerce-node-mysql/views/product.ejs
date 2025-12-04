@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="border p-4">
+      <!-- optional image -->
+      <div style="height:250px;background:#f1f1f1;display:flex;align-items:center;justify-content:center;">
+        <span class="text-muted">Product Image</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-6">
+    <h2><%= product.title %></h2>
+    <p class="text-muted">$<%= Number(product.price).toFixed(2) %></p>
+    <p><%= product.description || '' %></p>
+    <form action="/cart/add" method="POST" class="row g-2 align-items-center">
+      <input type="hidden" name="productId" value="<%= product.id %>">
+      <div class="col-auto">
+        <input type="number" name="qty" value="1" min="1" class="form-control" style="width:100px;">
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary">Add to Cart</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

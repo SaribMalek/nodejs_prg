@@ -1,0 +1,10 @@
+<%- include('partials/header') %>
+
+<div class="alert alert-success">
+  <h4>Order placed!</h4>
+  <p>Your order <strong>#<%= orderId %></strong> was created successfully. Total: $<%= Number(total).toFixed(2) %></p>
+  <p><a href="/">Back to shop</a></p>
+</div>
+
+<%- include('partials/footer') %>
+	

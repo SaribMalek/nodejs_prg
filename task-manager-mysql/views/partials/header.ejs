@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div class="logo">TaskManager</div>
+      <div class="tagline">Simple • Fast • Clean</div>
+    </div>
+  </header>
+
+  <!-- Edit Modal (hidden by default) -->
+  <div id="editModal" class="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="true"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true">
+      <h3 class="modal__title">Edit Task</h3>
+      <form id="editForm" method="POST">
+        <label class="label" for="editTitle">Title</label>
+        <input type="text" id="editTitle" name="title" class="input" required />
+        <div class="modal__actions">
+          <button type="button" id="cancelEdit" class="btn btn--muted">Cancel</button>
+          <button type="submit" class="btn btn--primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>

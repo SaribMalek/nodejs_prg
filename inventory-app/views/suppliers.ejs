@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Suppliers</h3>
+  <div>
+    <a class="btn btn-sm btn-success me-2" href="/suppliers/add">Add Supplier</a>
+    <a class="btn btn-sm btn-secondary" href="/">Dashboard</a>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead><tr><th>ID</th><th>Name</th><th>Phone</th><th>Email</th><th>Actions</th></tr></thead>
+    <tbody>
+      <% suppliers.forEach(s => { %>
+        <tr>
+          <td><%= s.id %></td>
+          <td><%= s.name %></td>
+          <td><%= s.phone || '-' %></td>
+          <td><%= s.email || '-' %></td>
+          <td>
+            <a class="btn btn-sm btn-primary" href="/suppliers/edit/<%= s.id %>">Edit</a>
+            <form action="/suppliers/delete/<%= s.id %>" method="POST" class="d-inline" onsubmit="return confirm('Delete supplier? Items will be set to no supplier.');">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('partials/footer') %>

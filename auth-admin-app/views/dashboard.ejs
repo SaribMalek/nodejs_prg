@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card p-3 mb-3">
+      <h6>Users</h6>
+      <h2><%= analytics.usersCount %></h2>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3 mb-3">
+      <h6>Sales</h6>
+      <h2>$<%= analytics.sales %></h2>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3 mb-3">
+      <h6>Orders</h6>
+      <h2><%= analytics.orders %></h2>
+    </div>
+  </div>
+</div>
+
+<div class="card p-3">
+  <h5>Welcome, <%= user.name %></h5>
+  <p>This is your dashboard. Admin users can manage users via the Users page.</p>
+</div>
+
+<%- include('partials/footer') %>
