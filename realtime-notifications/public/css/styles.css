@@ -1,0 +1,9 @@
+body { background: #f5f7fb; }
+.navbar .btn { width: 48px; height: 36px; }
+.navbar .btn.refresh_btn { width: 78px; height: 36px; }
+#notifList li { list-style: none; }
+.badge-position {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+}
